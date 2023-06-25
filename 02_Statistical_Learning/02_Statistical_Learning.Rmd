@@ -245,3 +245,55 @@ loadhistory() # To load the savesd objects.
 ```
 
 ## 2.4 Exercises
+
+```{r}
+# 8. 
+# a.
+college <- read.csv("College.csv")
+View(college)
+
+# b. The first column is the university name. Its not a data column,  but we might need # it.
+rownames(college) <- college[, 1]
+View(college) # now we have row.names column like an id to each observation
+
+# We still need to get rid of the first column
+college <- college[, -1]
+View(college)
+
+# Using summary()
+summary(college)
+
+# Using pairs() to make a scatter plot of the first 10 variables of the data.
+attach(college)
+names(college)
+pairs(college[2:12]) # Because pairs don't accept non numerical variables.
+
+plot(as.factor(Private), Outstate)
+```
+
+```{r}
+Elite <- rep("No", nrow(college))
+Elite[college$Top10perc > 50] <- "Yes"
+Elite <- as.factor(Elite)
+college <- data.frame(college, Elite)
+
+summary(college)
+plot(Elite, Outstate)
+X <- college[, 2:4]
+par(nfrow = c(2, 2))
+lapply(names(X), function(k) hist(X[[k]], main=k)) # NOT RIGHT.
+
+```
+
+```{r}
+# 10.
+library(ISLR2)
+
+Boston
+
+?Boston
+
+dim(Boston)
+
+
+```
